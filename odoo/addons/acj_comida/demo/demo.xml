@@ -51,6 +51,10 @@
         <record id="demo_customer" model="res.partner">
             <field name="name">Cliente Demo</field>
             <field name="email">demo@cliente.com</field>
+            <field name="phone_number">+34 600 000 000</field>
+            <field name="delivery_address">Calle Falsa 123, 28000 Madrid</field>
+            <field name="is_customer">True</field>
+            <field name="preferred_category" ref="category_hamburguesas"/>
         </record>
 
         <!-- Demo Order -->

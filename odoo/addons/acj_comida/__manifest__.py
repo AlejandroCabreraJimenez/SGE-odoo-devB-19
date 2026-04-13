@@ -34,6 +34,7 @@ Características principales:
         'views/product_views.xml',
         'views/ingredient_views.xml',
         'views/order_views.xml',
+        'views/res_partner_views.xml',
         'views/order_line_views.xml',
         'views/menus.xml',
     ],

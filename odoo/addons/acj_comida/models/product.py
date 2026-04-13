@@ -20,7 +20,13 @@ class AcjComidaProduct(models.Model):
     category_id = fields.Many2one('acj_comida.category', string='Categoría')
     image = fields.Binary(string='Imagen')
     active = fields.Boolean(default=True)
-    ingredient_ids = fields.Many2many('acj_comida.ingredient', string='Ingredientes')
+    ingredient_ids = fields.Many2many(
+        'acj_comida.ingredient',
+        'acj_comida_product_ingredient_rel',
+        'product_id',
+        'ingredient_id',
+        string='Ingredientes'
+    )
     sales_count = fields.Integer(string='Cantidad Vendida', compute='_compute_sales_count')
 
     @api.constrains('price')

@@ -11,3 +11,4 @@ class AcjComidaCategory(models.Model):
     description = fields.Text(string='Descripción')
     image = fields.Binary(string='Imagen')
     active = fields.Boolean(default=True)
+    product_ids = fields.One2many('acj_comida.product', 'category_id', string='Productos')

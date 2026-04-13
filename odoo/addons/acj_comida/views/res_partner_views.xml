@@ -1,0 +1,68 @@
+<?xml version="1.0" encoding="utf-8"?>
+<odoo>
+    <data>
+        <record id="view_acj_comida_partner_search" model="ir.ui.view">
+            <field name="name">acj_comida.partner.search</field>
+            <field name="model">res.partner</field>
+            <field name="arch" type="xml">
+                <search>
+                    <field name="name"/>
+                    <field name="phone_number"/>
+                    <field name="email"/>
+                    <filter name="customers" string="Clientes" domain="[('is_customer', '=', True)]"/>
+                    <filter name="high_order" string="Clientes VIP" domain="[('total_spent', '>', 50)]"/>
+                </search>
+            </field>
+        </record>
+
+        <record id="view_acj_comida_partner_tree" model="ir.ui.view">
+            <field name="name">acj_comida.partner.tree</field>
+            <field name="model">res.partner</field>
+            <field name="arch" type="xml">
+                <tree>
+                    <field name="name"/>
+                    <field name="phone_number"/>
+                    <field name="email"/>
+                    <field name="is_customer"/>
+                    <field name="total_orders"/>
+                    <field name="total_spent"/>
+                </tree>
+            </field>
+        </record>
+
+        <record id="view_acj_comida_partner_form" model="ir.ui.view">
+            <field name="name">acj_comida.partner.form</field>
+            <field name="model">res.partner</field>
+            <field name="arch" type="xml">
+                <form string="Cliente">
+                    <sheet>
+                        <group>
+                            <group>
+                                <field name="name"/>
+                                <field name="is_customer"/>
+                                <field name="email"/>
+                                <field name="phone_number"/>
+                            </group>
+                            <group>
+                                <field name="delivery_address"/>
+                                <field name="preferred_category"/>
+                                <field name="last_order_date" readonly="1"/>
+                                <field name="total_orders" readonly="1"/>
+                                <field name="total_spent" readonly="1"/>
+                            </group>
+                        </group>
+                    </sheet>
+                </form>
+            </field>
+        </record>
+
+        <record id="action_acj_comida_customer" model="ir.actions.act_window">
+            <field name="name">Clientes</field>
+            <field name="res_model">res.partner</field>
+            <field name="view_mode">tree,form</field>
+            <field name="view_id" ref="view_acj_comida_partner_tree"/>
+            <field name="search_view_id" ref="view_acj_comida_partner_search"/>
+            <field name="domain">[('is_customer', '=', True)]</field>
+        </record>
+    </data>
+</odoo>

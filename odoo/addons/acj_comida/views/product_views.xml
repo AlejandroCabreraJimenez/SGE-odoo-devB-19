@@ -70,7 +70,13 @@
                             </group>
                         </group>
                         <group>
-                            <field name="ingredient_ids" widget="many2many_tags"/>
+                            <field name="ingredient_ids">
+                                <tree>
+                                    <field name="name"/>
+                                    <field name="stock"/>
+                                    <field name="unit"/>
+                                </tree>
+                            </field>
                         </group>
                         <group>
                             <field name="image" widget="image" class="oe_avatar"/>

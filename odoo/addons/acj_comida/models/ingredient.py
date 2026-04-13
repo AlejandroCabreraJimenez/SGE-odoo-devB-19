@@ -16,3 +16,10 @@ class AcjComidaIngredient(models.Model):
         ('units', 'Unidades'),
     ], string='Unidad', required=True)
     active = fields.Boolean(default=True)
+    product_ids = fields.Many2many(
+        'acj_comida.product',
+        'acj_comida_product_ingredient_rel',
+        'ingredient_id',
+        'product_id',
+        string='Productos'
+    )

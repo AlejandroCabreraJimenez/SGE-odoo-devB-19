@@ -31,6 +31,15 @@
                             <field name="image" widget="image" class="oe_avatar"/>
                             <field name="active"/>
                         </group>
+                        <group>
+                            <field name="product_ids">
+                                <tree>
+                                    <field name="name"/>
+                                    <field name="price"/>
+                                    <field name="active"/>
+                                </tree>
+                            </field>
+                        </group>
                     </sheet>
                 </form>
             </field>

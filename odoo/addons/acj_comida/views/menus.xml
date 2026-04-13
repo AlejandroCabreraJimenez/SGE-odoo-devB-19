@@ -9,5 +9,6 @@
         <menuitem id="menu_acj_comida_product" name="Productos" parent="menu_acj_comida_root" action="action_acj_comida_product" sequence="2"/>
         <menuitem id="menu_acj_comida_ingredient" name="Ingredientes" parent="menu_acj_comida_root" action="action_acj_comida_ingredient" sequence="3"/>
         <menuitem id="menu_acj_comida_order" name="Pedidos" parent="menu_acj_comida_root" action="action_acj_comida_order" sequence="4"/>
+        <menuitem id="menu_acj_comida_customer" name="Clientes" parent="menu_acj_comida_root" action="action_acj_comida_customer" sequence="5"/>
     </data>
 </odoo>

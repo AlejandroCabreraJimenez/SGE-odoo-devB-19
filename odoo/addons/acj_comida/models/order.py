@@ -1,6 +1,7 @@
 # -*- coding: utf-8 -*-
 
 from odoo import models, fields, api
+from odoo.exceptions import ValidationError
 from datetime import timedelta
 
 
@@ -38,6 +39,7 @@ class AcjComidaOrder(models.Model):
             else:
                 order.estimated_date = fields.Datetime.now() + timedelta(minutes=30)
 
+    @api.depends('order_line_ids.quantity')
     def _compute_items_count(self):
         for order in self:
             order.items_count = sum(line.quantity for line in order.order_line_ids)
