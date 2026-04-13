@@ -1,60 +1,232 @@
+<?xml version="1.0" encoding="utf-8"?>
 <odoo>
   <data>
-    <!-- explicit list view definition -->
-<!--
-    <record model="ir.ui.view" id="acj_comida_rapida.list">
-      <field name="name">acj_comidaRapida list</field>
-      <field name="model">acj_comida_rapida.acj_comida_rapida</field>
+    <!-- Category Views -->
+    <record model="ir.ui.view" id="acj_comida_rapida.category_tree">
+      <field name="name">acj_comida_rapida.category.tree</field>
+      <field name="model">acj_comida_rapida.category</field>
       <field name="arch" type="xml">
         <tree>
           <field name="name"/>
-          <field name="value"/>
-          <field name="value2"/>
+          <field name="description"/>
         </tree>
       </field>
     </record>
--->
 
-    <!-- actions opening views on models -->
-<!--
-    <record model="ir.actions.act_window" id="acj_comida_rapida.action_window">
-      <field name="name">acj_comidaRapida window</field>
-      <field name="res_model">acj_comida_rapida.acj_comida_rapida</field>
-      <field name="view_mode">tree,form</field>
-    </record>
--->
-
-    <!-- server action to the one above -->
-<!--
-    <record model="ir.actions.server" id="acj_comida_rapida.action_server">
-      <field name="name">acj_comidaRapida server</field>
-      <field name="model_id" ref="model_acj_comida_rapida_acj_comida_rapida"/>
-      <field name="state">code</field>
-      <field name="code">
-        action = {
-          "type": "ir.actions.act_window",
-          "view_mode": "tree,form",
-          "res_model": model._name,
-        }
+    <record model="ir.ui.view" id="acj_comida_rapida.category_form">
+      <field name="name">acj_comida_rapida.category.form</field>
+      <field name="model">acj_comida_rapida.category</field>
+      <field name="arch" type="xml">
+        <form>
+          <sheet>
+            <group>
+              <field name="name"/>
+              <field name="description"/>
+            </group>
+          </sheet>
+        </form>
       </field>
     </record>
--->
 
-    <!-- Top menu item -->
-<!--
-    <menuitem name="acj_comidaRapida" id="acj_comida_rapida.menu_root"/>
--->
-    <!-- menu categories -->
-<!--
-    <menuitem name="Menu 1" id="acj_comida_rapida.menu_1" parent="acj_comida_rapida.menu_root"/>
-    <menuitem name="Menu 2" id="acj_comida_rapida.menu_2" parent="acj_comida_rapida.menu_root"/>
--->
-    <!-- actions -->
-<!--
-    <menuitem name="List" id="acj_comida_rapida.menu_1_list" parent="acj_comida_rapida.menu_1"
-              action="acj_comida_rapida.action_window"/>
-    <menuitem name="Server to list" id="acj_comida_rapida" parent="acj_comida_rapida.menu_2"
-              action="acj_comida_rapida.action_server"/>
--->
+    <!-- Ingredient Views -->
+    <record model="ir.ui.view" id="acj_comida_rapida.ingredient_tree">
+      <field name="name">acj_comida_rapida.ingredient.tree</field>
+      <field name="model">acj_comida_rapida.ingredient</field>
+      <field name="arch" type="xml">
+        <tree>
+          <field name="name"/>
+          <field name="price"/>
+          <field name="description"/>
+        </tree>
+      </field>
+    </record>
+
+    <record model="ir.ui.view" id="acj_comida_rapida.ingredient_form">
+      <field name="name">acj_comida_rapida.ingredient.form</field>
+      <field name="model">acj_comida_rapida.ingredient</field>
+      <field name="arch" type="xml">
+        <form>
+          <sheet>
+            <group>
+              <field name="name"/>
+              <field name="price"/>
+              <field name="description"/>
+            </group>
+          </sheet>
+        </form>
+      </field>
+    </record>
+
+    <!-- Product Views -->
+    <record model="ir.ui.view" id="acj_comida_rapida.product_tree">
+      <field name="name">acj_comida_rapida.product.tree</field>
+      <field name="model">acj_comida_rapida.product</field>
+      <field name="arch" type="xml">
+        <tree>
+          <field name="name"/>
+          <field name="price"/>
+          <field name="category_id"/>
+          <field name="ingredient_count"/>
+        </tree>
+      </field>
+    </record>
+
+    <record model="ir.ui.view" id="acj_comida_rapida.product_kanban">
+      <field name="name">acj_comida_rapida.product.kanban</field>
+      <field name="model">acj_comida_rapida.product</field>
+      <field name="arch" type="xml">
+        <kanban>
+          <field name="name"/>
+          <field name="price"/>
+          <field name="category_id"/>
+          <templates>
+            <t t-name="kanban-box">
+              <div class="oe_kanban_card">
+                <div class="oe_kanban_content">
+                  <h4><field name="name"/></h4>
+                  <p><field name="price"/> €</p>
+                  <p><field name="category_id"/></p>
+                  <p>Ingredientes: <field name="ingredient_count"/></p>
+                </div>
+              </div>
+            </t>
+          </templates>
+        </kanban>
+      </field>
+    </record>
+
+    <record model="ir.ui.view" id="acj_comida_rapida.product_search">
+      <field name="name">acj_comida_rapida.product.search</field>
+      <field name="model">acj_comida_rapida.product</field>
+      <field name="arch" type="xml">
+        <search>
+          <field name="name"/>
+          <field name="category_id"/>
+          <group expand="0" string="Agrupar por">
+            <filter name="group_by_category" string="Categoría" context="{'group_by': 'category_id'}"/>
+          </group>
+        </search>
+      </field>
+    </record>
+
+    <record model="ir.ui.view" id="acj_comida_rapida.product_form">
+      <field name="name">acj_comida_rapida.product.form</field>
+      <field name="model">acj_comida_rapida.product</field>
+      <field name="arch" type="xml">
+        <form>
+          <sheet>
+            <group>
+              <field name="name"/>
+              <field name="price"/>
+              <field name="category_id"/>
+              <field name="ingredient_count"/>
+              <field name="description"/>
+              <field name="image" widget="image"/>
+            </group>
+            <notebook>
+              <page string="Ingredientes">
+                <field name="ingredient_ids">
+                  <tree>
+                    <field name="name"/>
+                    <field name="price"/>
+                  </tree>
+                </field>
+              </page>
+            </notebook>
+          </sheet>
+        </form>
+      </field>
+    </record>
+
+    <!-- Order Line Views (for embedded) -->
+    <record model="ir.ui.view" id="acj_comida_rapida.order_line_tree">
+      <field name="name">acj_comida_rapida.order_line.tree</field>
+      <field name="model">acj_comida_rapida.order_line</field>
+      <field name="arch" type="xml">
+        <tree editable="bottom">
+          <field name="product_id"/>
+          <field name="quantity"/>
+          <field name="price_unit"/>
+          <field name="price_subtotal"/>
+        </tree>
+      </field>
+    </record>
+
+    <!-- Order Views -->
+    <record model="ir.ui.view" id="acj_comida_rapida.order_tree">
+      <field name="name">acj_comida_rapida.order.tree</field>
+      <field name="model">acj_comida_rapida.order</field>
+      <field name="arch" type="xml">
+        <tree>
+          <field name="name"/>
+          <field name="date"/>
+          <field name="customer_id"/>
+          <field name="total"/>
+        </tree>
+      </field>
+    </record>
+
+    <record model="ir.ui.view" id="acj_comida_rapida.order_form">
+      <field name="name">acj_comida_rapida.order.form</field>
+      <field name="model">acj_comida_rapida.order</field>
+      <field name="arch" type="xml">
+        <form>
+          <sheet>
+            <group>
+              <field name="name"/>
+              <field name="date"/>
+              <field name="customer_id"/>
+              <field name="total"/>
+            </group>
+            <notebook>
+              <page string="Líneas de pedido">
+                <field name="order_line_ids">
+                  <tree>
+                    <field name="product_id"/>
+                    <field name="quantity"/>
+                    <field name="price_unit"/>
+                    <field name="price_subtotal"/>
+                  </tree>
+                </field>
+              </page>
+            </notebook>
+          </sheet>
+        </form>
+      </field>
+    </record>
+
+    <!-- Actions -->
+    <record model="ir.actions.act_window" id="acj_comida_rapida.category_action">
+      <field name="name">Categorías</field>
+      <field name="res_model">acj_comida_rapida.category</field>
+      <field name="view_mode">tree,form</field>
+    </record>
+
+    <record model="ir.actions.act_window" id="acj_comida_rapida.ingredient_action">
+      <field name="name">Ingredientes</field>
+      <field name="res_model">acj_comida_rapida.ingredient</field>
+      <field name="view_mode">tree,form</field>
+    </record>
+
+    <record model="ir.actions.act_window" id="acj_comida_rapida.product_action">
+      <field name="name">Productos</field>
+      <field name="res_model">acj_comida_rapida.product</field>
+      <field name="view_mode">tree,kanban,form</field>
+      <field name="search_view_id" ref="acj_comida_rapida.product_search"/>
+    </record>
+
+    <record model="ir.actions.act_window" id="acj_comida_rapida.order_action">
+      <field name="name">Pedidos</field>
+      <field name="res_model">acj_comida_rapida.order</field>
+      <field name="view_mode">tree,form</field>
+    </record>
+
+    <!-- Menus -->
+    <menuitem name="Comida Rápida" id="acj_comida_rapida.menu_root"/>
+
+    <menuitem name="Categorías" id="acj_comida_rapida.menu_category" parent="acj_comida_rapida.menu_root" action="acj_comida_rapida.category_action"/>
+    <menuitem name="Ingredientes" id="acj_comida_rapida.menu_ingredient" parent="acj_comida_rapida.menu_root" action="acj_comida_rapida.ingredient_action"/>
+    <menuitem name="Productos" id="acj_comida_rapida.menu_product" parent="acj_comida_rapida.menu_root" action="acj_comida_rapida.product_action"/>
+    <menuitem name="Pedidos" id="acj_comida_rapida.menu_order" parent="acj_comida_rapida.menu_root" action="acj_comida_rapida.order_action"/>
   </data>
 </odoo>

@@ -1,30 +1,91 @@
 <odoo>
     <data>
-<!--
-          <record id="object0" model="acj_comida_rapida.acj_comida_rapida">
-            <field name="name">Object 0</field>
-            <field name="value">0</field>
-          </record>
+        <!-- Sequence for orders -->
+        <record id="seq_acj_comida_rapida_order" model="ir.sequence">
+            <field name="name">Secuencia de pedidos</field>
+            <field name="code">acj_comida_rapida.order</field>
+            <field name="prefix">ORD</field>
+            <field name="padding">3</field>
+        </record>
 
-          <record id="object1" model="acj_comida_rapida.acj_comida_rapida">
-            <field name="name">Object 1</field>
-            <field name="value">10</field>
-          </record>
+        <!-- Categories -->
+        <record id="category_burgers" model="acj_comida_rapida.category">
+            <field name="name">Hamburguesas</field>
+            <field name="description">Categoría de hamburguesas</field>
+        </record>
 
-          <record id="object2" model="acj_comida_rapida.acj_comida_rapida">
-            <field name="name">Object 2</field>
-            <field name="value">20</field>
-          </record>
+        <record id="category_sides" model="acj_comida_rapida.category">
+            <field name="name">Acompañamientos</field>
+            <field name="description">Categoría de acompañamientos</field>
+        </record>
 
-          <record id="object3" model="acj_comida_rapida.acj_comida_rapida">
-            <field name="name">Object 3</field>
-            <field name="value">30</field>
-          </record>
+        <record id="category_drinks" model="acj_comida_rapida.category">
+            <field name="name">Bebidas</field>
+            <field name="description">Categoría de bebidas</field>
+        </record>
 
-          <record id="object4" model="acj_comida_rapida.acj_comida_rapida">
-            <field name="name">Object 4</field>
-            <field name="value">40</field>
-          </record>
--->
+        <!-- Ingredients -->
+        <record id="ingredient_beef" model="acj_comida_rapida.ingredient">
+            <field name="name">Carne de res</field>
+            <field name="price">5.0</field>
+            <field name="description">Carne para hamburguesa</field>
+        </record>
+
+        <record id="ingredient_lettuce" model="acj_comida_rapida.ingredient">
+            <field name="name">Lechuga</field>
+            <field name="price">0.5</field>
+            <field name="description">Lechuga fresca</field>
+        </record>
+
+        <record id="ingredient_cheese" model="acj_comida_rapida.ingredient">
+            <field name="name">Queso</field>
+            <field name="price">1.0</field>
+            <field name="description">Queso cheddar</field>
+        </record>
+
+        <record id="ingredient_fries" model="acj_comida_rapida.ingredient">
+            <field name="name">Papas fritas</field>
+            <field name="price">2.0</field>
+            <field name="description">Papas fritas</field>
+        </record>
+
+        <record id="ingredient_coke" model="acj_comida_rapida.ingredient">
+            <field name="name">Coca Cola</field>
+            <field name="price">1.5</field>
+            <field name="description">Refresco de cola</field>
+        </record>
+
+        <!-- Products -->
+        <record id="product_burger" model="acj_comida_rapida.product">
+            <field name="name">Hamburguesa Clásica</field>
+            <field name="price">8.0</field>
+            <field name="category_id" ref="category_burgers"/>
+            <field name="description">Hamburguesa con carne, lechuga y queso</field>
+            <field name="ingredient_ids" eval="[(6, 0, [ref('ingredient_beef'), ref('ingredient_lettuce'), ref('ingredient_cheese')])]"/>
+        </record>
+
+        <record id="product_fries" model="acj_comida_rapida.product">
+            <field name="name">Papas Fritas</field>
+            <field name="price">3.0</field>
+            <field name="category_id" ref="category_sides"/>
+            <field name="description">Porción de papas fritas</field>
+            <field name="ingredient_ids" eval="[(6, 0, [ref('ingredient_fries')])]"/>
+        </record>
+
+        <record id="product_coke" model="acj_comida_rapida.product">
+            <field name="name">Coca Cola</field>
+            <field name="price">2.0</field>
+            <field name="category_id" ref="category_drinks"/>
+            <field name="description">Bebida refrescante</field>
+            <field name="ingredient_ids" eval="[(6, 0, [ref('ingredient_coke')])]"/>
+        </record>
+
+        <!-- Orders -->
+        <record id="order_demo" model="acj_comida_rapida.order">
+            <field name="name">ORD001</field>
+            <field name="date">2024-01-01</field>
+            <field name="customer_id" ref="base.partner_demo"/>
+            <field name="order_line_ids" eval="[(0, 0, {'product_id': ref('product_burger'), 'quantity': 1}), (0, 0, {'product_id': ref('product_fries'), 'quantity': 1}), (0, 0, {'product_id': ref('product_coke'), 'quantity': 1})]"/>
+        </record>
     </data>
 </odoo>
