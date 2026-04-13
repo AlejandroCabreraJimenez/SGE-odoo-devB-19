@@ -5,3 +5,4 @@ from . import product
 from . import ingredient
 from . import order
 from . import order_line
+from . import res_partner
