@@ -14,6 +14,8 @@ Módulo para gestionar pedidos, productos, ingredientes y categorías en un pues
     'category': 'Sales',
     'version': '1.0',
 
+    'application': True,
+
     'depends': ['base'],
 
     'data': [
