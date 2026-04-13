@@ -152,6 +152,24 @@
       </field>
     </record>
 
+    <record model="ir.ui.view" id="acj_comida_rapida.order_line_form">
+      <field name="name">acj_comida_rapida.order_line.form</field>
+      <field name="model">acj_comida_rapida.order_line</field>
+      <field name="arch" type="xml">
+        <form>
+          <sheet>
+            <group>
+              <field name="order_id" options="{'no_create': True}"/>
+              <field name="product_id"/>
+              <field name="quantity"/>
+              <field name="price_unit"/>
+              <field name="price_subtotal"/>
+            </group>
+          </sheet>
+        </form>
+      </field>
+    </record>
+
     <!-- Order Views -->
     <record model="ir.ui.view" id="acj_comida_rapida.order_tree">
       <field name="name">acj_comida_rapida.order.tree</field>
