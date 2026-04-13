@@ -12,6 +12,7 @@ class AcjComidaRapidaOrder(models.Model):
     customer_id = fields.Many2one('res.partner', string='Cliente')
     order_line_ids = fields.One2many('acj_comida_rapida.order_line', 'order_id', string='Líneas de pedido')
     total = fields.Float(string='Total', compute='_compute_total', store=True)
+    state = fields.Selection([('draft', 'Borrador'), ('confirmed', 'Confirmado'), ('done', 'Completado'), ('cancelled', 'Cancelado')], default='draft', string='Estado')
 
     @api.model
     def create(self, vals):
@@ -23,3 +24,15 @@ class AcjComidaRapidaOrder(models.Model):
     def _compute_total(self):
         for order in self:
             order.total = sum(line.price_subtotal for line in order.order_line_ids)
+
+    def action_confirm(self):
+        self.state = 'confirmed'
+
+    def action_done(self):
+        self.state = 'done'
+
+    def action_cancel(self):
+        self.state = 'cancelled'
+
+    def action_draft(self):
+        self.state = 'draft'
