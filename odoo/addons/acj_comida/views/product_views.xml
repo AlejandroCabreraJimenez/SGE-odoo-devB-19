@@ -1,0 +1,79 @@
+<?xml version="1.0" encoding="utf-8"?>
+<odoo>
+    <data>
+        <!-- Product Kanban View -->
+        <record id="view_acj_comida_product_kanban" model="ir.ui.view">
+            <field name="name">acj_comida.product.kanban</field>
+            <field name="model">acj_comida.product</field>
+            <field name="arch" type="xml">
+                <kanban>
+                    <field name="id"/>
+                    <field name="name"/>
+                    <field name="price"/>
+                    <field name="category_id"/>
+                    <field name="image"/>
+                    <templates>
+                        <t t-name="kanban-box">
+                            <div class="oe_kanban_global_click">
+                                <div class="o_kanban_image">
+                                    <img t-att-src="kanban_image('acj_comida.product', 'image', record.id.raw_value)" alt="Product"/>
+                                </div>
+                                <div class="oe_kanban_details">
+                                    <strong><field name="name"/></strong>
+                                    <div><field name="price"/> €</div>
+                                    <div><field name="category_id"/></div>
+                                </div>
+                            </div>
+                        </t>
+                    </templates>
+                </kanban>
+            </field>
+        </record>
+
+        <!-- Product Tree View -->
+        <record id="view_acj_comida_product_tree" model="ir.ui.view">
+            <field name="name">acj_comida.product.tree</field>
+            <field name="model">acj_comida.product</field>
+            <field name="arch" type="xml">
+                <tree>
+                    <field name="name"/>
+                    <field name="price"/>
+                    <field name="category_id"/>
+                    <field name="active"/>
+                </tree>
+            </field>
+        </record>
+
+        <!-- Product Form View -->
+        <record id="view_acj_comida_product_form" model="ir.ui.view">
+            <field name="name">acj_comida.product.form</field>
+            <field name="model">acj_comida.product</field>
+            <field name="arch" type="xml">
+                <form>
+                    <sheet>
+                        <div class="oe_title">
+                            <h1>
+                                <field name="name"/>
+                            </h1>
+                        </div>
+                        <group>
+                            <field name="description"/>
+                            <field name="price"/>
+                            <field name="category_id"/>
+                            <field name="image" widget="image" class="oe_avatar"/>
+                            <field name="ingredient_ids" widget="many2many_tags"/>
+                            <field name="active"/>
+                        </group>
+                    </sheet>
+                </form>
+            </field>
+        </record>
+
+        <!-- Product Action -->
+        <record id="action_acj_comida_product" model="ir.actions.act_window">
+            <field name="name">Productos</field>
+            <field name="res_model">acj_comida.product</field>
+            <field name="view_mode">kanban,tree,form</field>
+        </record>
+    </data>
+</odoo>

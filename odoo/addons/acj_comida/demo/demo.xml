@@ -1,23 +1,78 @@
 <odoo>
     <data>
-<!--
-          <record id="object0" model="acj_comida.acj_comida">
-            <field name="name">Object 0</field>
-            <field name="value">0</field>
-          </record>
+        <!-- Demo Categories -->
+        <record id="category_hamburguesas" model="acj_comida.category">
+            <field name="name">Hamburguesas</field>
+            <field name="description">Categoría de hamburguesas y similares</field>
+        </record>
 
-          <record id="object1" model="acj_comida.acj_comida">
-            <field name="name">Object 1</field>
-            <field name="value">10</field>
-          </record>
+        <record id="category_bebidas" model="acj_comida.category">
+            <field name="name">Bebidas</field>
+            <field name="description">Categoría de bebidas</field>
+        </record>
 
-          <record id="object2" model="acj_comida.acj_comida">
-            <field name="name">Object 2</field>
-            <field name="value">20</field>
-          </record>
+        <!-- Demo Ingredients -->
+        <record id="ingredient_carne" model="acj_comida.ingredient">
+            <field name="name">Carne de res</field>
+            <field name="stock">50.0</field>
+            <field name="unit">kg</field>
+        </record>
 
-          <record id="object3" model="acj_comida.acj_comida">
-            <field name="name">Object 3</field>
+        <record id="ingredient_pan" model="acj_comida.ingredient">
+            <field name="name">Pan de hamburguesa</field>
+            <field name="stock">100.0</field>
+            <field name="unit">units</field>
+        </record>
+
+        <record id="ingredient_coca" model="acj_comida.ingredient">
+            <field name="name">Coca-Cola</field>
+            <field name="stock">200.0</field>
+            <field name="unit">l</field>
+        </record>
+
+        <!-- Demo Products -->
+        <record id="product_big_mac" model="acj_comida.product">
+            <field name="name">Big Mac</field>
+            <field name="description">Hamburguesa clásica con doble carne</field>
+            <field name="price">5.99</field>
+            <field name="category_id" ref="category_hamburguesas"/>
+            <field name="ingredient_ids" eval="[(6, 0, [ref('ingredient_carne'), ref('ingredient_pan')])]"/>
+        </record>
+
+        <record id="product_coca_cola" model="acj_comida.product">
+            <field name="name">Coca-Cola</field>
+            <field name="description">Refresco de cola</field>
+            <field name="price">2.50</field>
+            <field name="category_id" ref="category_bebidas"/>
+            <field name="ingredient_ids" eval="[(6, 0, [ref('ingredient_coca')])]"/>
+        </record>
+
+        <!-- Demo Customer -->
+        <record id="demo_customer" model="res.partner">
+            <field name="name">Cliente Demo</field>
+            <field name="email">demo@cliente.com</field>
+        </record>
+
+        <!-- Demo Order -->
+        <record id="demo_order" model="acj_comida.order">
+            <field name="customer_id" ref="demo_customer"/>
+            <field name="state">confirmed</field>
+        </record>
+
+        <!-- Demo Order Lines -->
+        <record id="demo_order_line1" model="acj_comida.order_line">
+            <field name="order_id" ref="demo_order"/>
+            <field name="product_id" ref="product_big_mac"/>
+            <field name="quantity">2.0</field>
+        </record>
+
+        <record id="demo_order_line2" model="acj_comida.order_line">
+            <field name="order_id" ref="demo_order"/>
+            <field name="product_id" ref="product_coca_cola"/>
+            <field name="quantity">1.0</field>
+        </record>
+    </data>
+</odoo>
             <field name="value">30</field>
           </record>
 

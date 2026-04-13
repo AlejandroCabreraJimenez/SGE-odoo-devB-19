@@ -1,0 +1,13 @@
+<?xml version="1.0" encoding="utf-8"?>
+<odoo>
+    <data>
+        <!-- Main Menu -->
+        <menuitem id="menu_acj_comida_root" name="ACJ Comida" sequence="10"/>
+
+        <!-- Submenus -->
+        <menuitem id="menu_acj_comida_category" name="Categorías" parent="menu_acj_comida_root" action="action_acj_comida_category" sequence="1"/>
+        <menuitem id="menu_acj_comida_product" name="Productos" parent="menu_acj_comida_root" action="action_acj_comida_product" sequence="2"/>
+        <menuitem id="menu_acj_comida_ingredient" name="Ingredientes" parent="menu_acj_comida_root" action="action_acj_comida_ingredient" sequence="3"/>
+        <menuitem id="menu_acj_comida_order" name="Pedidos" parent="menu_acj_comida_root" action="action_acj_comida_order" sequence="4"/>
+    </data>
+</odoo>

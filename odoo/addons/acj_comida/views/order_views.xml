@@ -1,0 +1,83 @@
+<?xml version="1.0" encoding="utf-8"?>
+<odoo>
+    <data>
+        <!-- Order Search View -->
+        <record id="view_acj_comida_order_search" model="ir.ui.view">
+            <field name="name">acj_comida.order.search</field>
+            <field name="model">acj_comida.order</field>
+            <field name="arch" type="xml">
+                <search>
+                    <field name="name"/>
+                    <field name="customer_id"/>
+                    <field name="state"/>
+                    <filter name="draft" string="Borrador" domain="[('state', '=', 'draft')]"/>
+                    <filter name="confirmed" string="Confirmado" domain="[('state', '=', 'confirmed')]"/>
+                    <group expand="0" string="Agrupar por">
+                        <filter name="group_state" string="Estado" context="{'group_by': 'state'}"/>
+                        <filter name="group_customer" string="Cliente" context="{'group_by': 'customer_id'}"/>
+                    </group>
+                </search>
+            </field>
+        </record>
+
+        <!-- Order Tree View -->
+        <record id="view_acj_comida_order_tree" model="ir.ui.view">
+            <field name="name">acj_comida.order.tree</field>
+            <field name="model">acj_comida.order</field>
+            <field name="arch" type="xml">
+                <tree>
+                    <field name="name"/>
+                    <field name="customer_id"/>
+                    <field name="date"/>
+                    <field name="total"/>
+                    <field name="state"/>
+                </tree>
+            </field>
+        </record>
+
+        <!-- Order Form View -->
+        <record id="view_acj_comida_order_form" model="ir.ui.view">
+            <field name="name">acj_comida.order.form</field>
+            <field name="model">acj_comida.order</field>
+            <field name="arch" type="xml">
+                <form>
+                    <header>
+                        <field name="state" widget="statusbar"/>
+                    </header>
+                    <sheet>
+                        <div class="oe_title">
+                            <h1>
+                                <field name="name"/>
+                            </h1>
+                        </div>
+                        <group>
+                            <field name="customer_id"/>
+                            <field name="date"/>
+                            <field name="total"/>
+                        </group>
+                        <notebook>
+                            <page string="Líneas de Pedido">
+                                <field name="order_line_ids">
+                                    <tree editable="bottom">
+                                        <field name="product_id"/>
+                                        <field name="quantity"/>
+                                        <field name="price_unit"/>
+                                        <field name="subtotal"/>
+                                    </tree>
+                                </field>
+                            </page>
+                        </notebook>
+                    </sheet>
+                </form>
+            </field>
+        </record>
+
+        <!-- Order Action -->
+        <record id="action_acj_comida_order" model="ir.actions.act_window">
+            <field name="name">Pedidos</field>
+            <field name="res_model">acj_comida.order</field>
+            <field name="view_mode">tree,form</field>
+            <field name="search_view_id" ref="view_acj_comida_order_search"/>
+        </record>
+    </data>
+</odoo>

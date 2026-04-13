@@ -1,0 +1,13 @@
+<?xml version="1.0" encoding="utf-8"?>
+<odoo>
+    <data>
+        <record id="seq_acj_comida_order" model="ir.sequence">
+            <field name="name">ACJ Comida Order</field>
+            <field name="code">acj_comida.order</field>
+            <field name="prefix">ORD</field>
+            <field name="padding">5</field>
+            <field name="number_next">1</field>
+            <field name="number_increment">1</field>
+        </record>
+    </data>
+</odoo>
