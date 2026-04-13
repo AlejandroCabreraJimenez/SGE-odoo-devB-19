@@ -1,0 +1,442 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Memoria del Proyecto - ACJ Comida</title>
+    <style>
+        body {
+            font-family: 'Arial', sans-serif;
+            line-height: 1.6;
+            margin: 40px;
+            color: #333;
+            background-color: #f4f7fb;
+        }
+        .portada {
+            text-align: center;
+            border: 2px solid #0056b3;
+            padding: 30px;
+            margin-bottom: 40px;
+            background-color: #ffffff;
+            box-shadow: 0 4px 14px rgba(0, 0, 0, 0.08);
+        }
+        .portada h1 {
+            color: #0056b3;
+            margin-bottom: 12px;
+        }
+        .portada p {
+            margin: 6px 0;
+            font-size: 1rem;
+        }
+        h2, h3 {
+            color: #0056b3;
+            margin-bottom: 12px;
+        }
+        h2 {
+            font-size: 2rem;
+            border-bottom: 2px solid #0056b3;
+            padding-bottom: 6px;
+        }
+        h3 {
+            font-size: 1.4rem;
+            margin-top: 30px;
+        }
+        p {
+            margin: 0 0 16px 0;
+        }
+        ul, ol {
+            margin: 0 0 16px 22px;
+        }
+        li {
+            margin-bottom: 10px;
+        }
+        pre {
+            background-color: #eef4fb;
+            padding: 16px;
+            border-left: 4px solid #0056b3;
+            overflow-x: auto;
+            border-radius: 6px;
+            margin-bottom: 24px;
+        }
+        code {
+            background-color: #eef4fb;
+            padding: 2px 6px;
+            border-radius: 4px;
+        }
+        table {
+            width: 100%;
+            border-collapse: collapse;
+            margin: 20px 0 24px 0;
+            background-color: #ffffff;
+        }
+        th, td {
+            border: 1px solid #d6dbdf;
+            padding: 10px;
+            text-align: left;
+        }
+        th {
+            background-color: #0056b3;
+            color: #ffffff;
+        }
+        .requisitos {
+            background-color: #ffffff;
+            border: 1px solid #d6dbdf;
+            padding: 18px;
+            border-radius: 8px;
+            margin-bottom: 24px;
+        }
+        .requisitos h3 {
+            margin-top: 0;
+        }
+        .fin {
+            text-align: center;
+            margin-top: 40px;
+            font-style: italic;
+            color: #555;
+        }
+        a {
+            color: #0056b3;
+            text-decoration: none;
+        }
+        a:hover {
+            text-decoration: underline;
+        }
+        .indice {
+            background-color: #ffffff;
+            border: 1px solid #d6dbdf;
+            padding: 22px;
+            margin-bottom: 20px;
+            border-radius: 8px;
+        }
+        .indice ol {
+            list-style-type: decimal;
+            margin-left: 18px;
+        }
+    </style>
+</head>
+<body>
+
+<div class="portada">
+    <h1>MÓDULO ACJ COMIDA - GESTIÓN DE COMIDA RÁPIDA</h1>
+    <p><strong>Proyecto:</strong> 0491_SGE_RA5_Proyecto_2025-2026</p>
+    <p><strong>Alumno:</strong> A.C.J.</p>
+    <p><strong>Módulo:</strong> ACJ Comida</p>
+    <p><strong>Versión:</strong> 1.0</p>
+    <p><strong>Fecha:</strong> Abril 2026</p>
+</div>
+
+<div class="indice">
+    <h2>Índice</h2>
+    <ol>
+        <li><a href="#introduccion">Introducción</a></li>
+        <li><a href="#diagrama">Diagrama de Clases UML</a></li>
+        <li><a href="#finalidad">Finalidad del Módulo</a></li>
+        <li><a href="#funcionamiento">Funcionamiento del Módulo</a></li>
+        <li><a href="#arquitectura">Arquitectura Técnica</a></li>
+        <li><a href="#requisitos">Requisitos Implementados</a></li>
+        <li><a href="#conclusiones">Conclusiones Personales</a></li>
+        <li><a href="#problemas">Problemas Encontrados</a></li>
+        <li><a href="#sugerencias">Sugerencias de Mejora</a></li>
+        <li><a href="#referencias">Referencias Bibliográficas</a></li>
+    </ol>
+</div>
+
+<h2 id="introduccion">Introducción</h2>
+<p>El presente proyecto es un módulo Odoo 17 que implementa un sistema integral de gestión para restaurantes de comida rápida. El módulo "ACJ Comida" proporciona funcionalidades para la administración de productos, categorías, ingredientes, pedidos y clientes, con un enfoque en la usabilidad y la escalabilidad.</p>
+<p>El desarrollo sigue la arquitectura MVC (Model-View-Controller) de Odoo, implementando modelos de datos robustos con validaciones tanto en Python como en SQL, vistas de usuario intuitivas y controles de seguridad granulares.</p>
+
+<h2 id="diagrama">Diagrama de Clases UML</h2>
+<pre>
+┌─────────────────────────────────────────────────────────────────┐
+│                     res.partner (heredada)                      │
+├─────────────────────────────────────────────────────────────────┤
+│ + id: Integer (PK)                                              │
+│ + name: Char                                                    │
+│ + email: Char                                                   │
+│ + is_customer: Boolean                                          │
+│ + phone_number: Char                                            │
+│ + delivery_address: Text                                        │
+│ + preferred_category: Many2one → acj_comida.category           │
+├─────────────────────────────────────────────────────────────────┤
+│ + total_orders(): Integer (computed)                            │
+│ + total_spent(): Float (computed)                               │
+│ + last_order_date(): Datetime (computed)                        │
+└─────────────────────────────────────────────────────────────────┘
+           △
+           │ hereda
+           │
+┌─────────────────────────────────────────────────────────────────┐
+│                   acj_comida.category                           │
+├─────────────────────────────────────────────────────────────────┤
+│ + id: Integer (PK)                                              │
+│ + name: Char (required, unique)                                 │
+│ + description: Text                                             │
+│ + image: Binary                                                 │
+│ + active: Boolean = True                                        │
+├─────────────────────────────────────────────────────────────────┤
+│ - Relación 1:N con Product                                      │
+└─────────────────────────────────────────────────────────────────┘
+           △
+           │ 1:N
+           │
+┌─────────────────────────────────────────────────────────────────────┐
+│                    acj_comida.product                               │
+├─────────────────────────────────────────────────────────────────────┤
+│ + id: Integer (PK)                                                  │
+│ + name: Char (required, unique)                                     │
+│ + description: Text                                                 │
+│ + price: Float (required, > 0)                                      │
+│ + discount: Float (0-100%) = 0.0                                    │
+│ + net_price: Float (computed, stored)                               │
+│ + category_id: Many2one → acj_comida.category                       │
+│ + image: Binary                                                     │
+│ + active: Boolean = True                                            │
+│ + ingredient_ids: Many2many → acj_comida.ingredient                 │
+│ + sales_count: Integer (computed)                                   │
+├─────────────────────────────────────────────────────────────────────┤
+│ + _check_price(): Constraint                                        │
+│ + _check_discount(): Constraint                                     │
+│ + _compute_net_price(): Compute field                               │
+│ + _compute_sales_count(): Compute field                             │
+│ + _onchange_discount(): Event handler                               │
+│ - Constraints SQL: unique name, CHECK price > 0                     │
+└─────────────────────────────────────────────────────────────────────┘
+           △
+           │ M:N
+           │
+┌─────────────────────────────────────────────────────────────────┐
+│                 acj_comida.ingredient                           │
+├──────────────────────────────────────────────────────────────────┤
+│ + id: Integer (PK)                                              │
+│ + name: Char (required)                                         │
+│ + description: Text                                             │
+│ + stock: Float                                                  │
+│ + unit: Selection (kg, l, units)                                │
+│ + active: Boolean = True                                        │
+├──────────────────────────────────────────────────────────────────┤
+│ - Relación M:N con Product                                      │
+└──────────────────────────────────────────────────────────────────┘
+
+
+┌──────────────────────────────────────────────────────────────────┐
+│                      acj_comida.order                            │
+├──────────────────────────────────────────────────────────────────┤
+│ + id: Integer (PK)                                               │
+│ + name: Char (readonly, sequence)                                │
+│ + customer_id: Many2one → res.partner (required)                 │
+│ + date: Datetime = NOW                                           │
+│ + estimated_date: Datetime (computed, stored)                    │
+│ + total: Float (computed, stored)                                │
+│ + items_count: Integer (computed)                                │
+│ + state: Selection (draft, confirmed, done, cancelled)           │
+│ + order_line_ids: One2many → acj_comida.order_line               │
+├──────────────────────────────────────────────────────────────────┤
+│ + _compute_total(): Compute field                                │
+│ + _compute_estimated_date(): Compute field                       │
+│ + _compute_items_count(): Compute field                          │
+│ + action_confirm(): Workflow transition                          │
+│ + action_done(): Workflow transition                             │
+│ + action_cancel(): Workflow transition                           │
+│ + action_draft(): Workflow transition                            │
+│ + _onchange_customer(): Event handler                            │
+│ + create(): Override (sequence generation)                       │
+│ + write(): Override (validation)                                 │
+│ - Constraints SQL: CHECK total >= 0                              │
+└──────────────────────────────────────────────────────────────────┘
+           △
+           │ 1:N
+           │
+┌──────────────────────────────────────────────────────────────────┐
+│                   acj_comida.order_line                          │
+├──────────────────────────────────────────────────────────────────┤
+│ + id: Integer (PK)                                               │
+│ + order_id: Many2one → acj_comida.order (required, cascade)      │
+│ + product_id: Many2one → acj_comida.product (required)           │
+│ + quantity: Float (required, > 0)                                │
+│ + price_unit: Float (readonly, related → product.price)          │
+│ + subtotal: Float (computed, stored)                             │
+├──────────────────────────────────────────────────────────────────┤
+│ + _compute_subtotal(): Compute field                             │
+│ + _check_quantity(): Constraint                                  │
+└──────────────────────────────────────────────────────────────────┘
+</pre>
+
+<h2 id="finalidad">Finalidad del Módulo</h2>
+<p>El módulo <strong>ACJ Comida</strong> está diseñado para ser una solución completa de gestión operativa para restaurantes de comida rápida. Sus objetivos principales son:</p>
+<h3>1. Gestión de Catálogo de Productos</h3>
+<ul>
+    <li>Administración centralizada de productos disponibles</li>
+    <li>Organización mediante categorías (hamburguesas, bebidas, acompañamientos)</li>
+    <li>Soporte de imágenes representativas para cada producto</li>
+    <li>Control de descuentos y cálculo automático de precios netos</li>
+    <li>Seguimiento de ventas por producto</li>
+</ul>
+<h3>2. Control de Inventario</h3>
+<ul>
+    <li>Gestión de ingredientes con unidades de medida variables</li>
+    <li>Registro de stock disponible</li>
+    <li>Relación many2many entre productos e ingredientes</li>
+</ul>
+<h3>3. Gestión de Pedidos</h3>
+<ul>
+    <li>Creación y seguimiento de pedidos con workflow completo</li>
+    <li>Estados: Borrador → Confirmado → Completado/Cancelado</li>
+    <li>Cálculo automático de totales y cantidades</li>
+    <li>Estimación automática de tiempo de entrega</li>
+    <li>Edición rápida de líneas de pedido</li>
+</ul>
+<h3>4. Gestión de Clientes</h3>
+<ul>
+    <li>Extensión del modelo res.partner con información adicional</li>
+    <li>Estadísticas de compra (total ordenado, número de órdenes)</li>
+    <li>Categoría favorita de productos</li>
+    <li>Dirección de entrega personalizada</li>
+</ul>
+<h3>5. Seguridad y Permisos</h3>
+<ul>
+    <li>Control granular de acceso CRUD para usuarios internos</li>
+    <li>Permisos completos para administradores</li>
+    <li>Separación de roles: usuarios estándar vs administradores</li>
+</ul>
+
+<h2 id="funcionamiento">Funcionamiento del Módulo</h2>
+<h3>Flujo de Usuario: Crear Pedido</h3>
+<pre>
+1. Navega a menú "Pedidos"
+   ↓
+2. Crea nuevo pedido (se genera número automático)
+   ↓
+3. Selecciona cliente (se muestra aviso si es nuevo)
+   ↓
+4. Agrega líneas de pedido (edición inline):
+   - Producto → Se carga automáticamente precio
+   - Cantidad → Se calcula subtotal
+   ↓
+5. Sistema calcula automáticamente:
+   - Total del pedido
+   - Número de items
+   - Fecha estimada de entrega
+   ↓
+6. Cambia estado del pedido:
+   - Confirmar → Valida que tenga mínimo 1 línea
+   - Completar → Marca como entregado
+   - Cancelar → Rechaza la orden
+</pre>
+
+<h2 id="arquitectura">Arquitectura Técnica</h2>
+<h3>Modelos de Datos</h3>
+<p><strong>5 Modelos Principales:</strong></p>
+<ol>
+    <li><strong>acj_comida.category</strong> - Categorías de productos</li>
+    <li><strong>acj_comida.product</strong> - Productos con precios y descuentos</li>
+    <li><strong>acj_comida.ingredient</strong> - Ingredientes con gestión de stock</li>
+    <li><strong>acj_comida.order</strong> - Pedidos con workflow</li>
+    <li><strong>acj_comida.order_line</strong> - Líneas de detalle de pedidos</li>
+</ol>
+<p><strong>1 Modelo Extendido:</strong></p>
+<ol start="6">
+    <li><strong>res.partner</strong> - Cliente extendido con estadísticas</li>
+</ol>
+<h3>Vistas Implementadas</h3>
+<table>
+    <thead>
+        <tr>
+            <th>Modelo</th>
+            <th>Tree</th>
+            <th>Form</th>
+            <th>Kanban</th>
+            <th>Search</th>
+        </tr>
+    </thead>
+    <tbody>
+        <tr>
+            <td>Category</td>
+            <td>✓</td>
+            <td>✓</td>
+            <td>-</td>
+            <td>-</td>
+        </tr>
+        <tr>
+            <td>Product</td>
+            <td>✓</td>
+            <td>✓</td>
+            <td>✓</td>
+            <td>-</td>
+        </tr>
+        <tr>
+            <td>Ingredient</td>
+            <td>✓</td>
+            <td>✓</td>
+            <td>-</td>
+            <td>-</td>
+        </tr>
+        <tr>
+            <td>Order</td>
+            <td>✓</td>
+            <td>✓</td>
+            <td>✓</td>
+            <td>✓</td>
+        </tr>
+        <tr>
+            <td>OrderLine</td>
+            <td>Inline</td>
+            <td>-</td>
+            <td>-</td>
+            <td>-</td>
+        </tr>
+    </tbody>
+</table>
+
+<h2 id="requisitos">Requisitos Implementados</h2>
+<div class="requisitos">
+    <h3>✅ Requisitos Mínimos (5 puntos)</h3>
+    <ul>
+        <li>[x] <strong>4+ clases en ficheros diferentes</strong>: 5 clases + 1 extendida</li>
+        <li>[x] <strong>Relaciones (one2many, many2one, many2many)</strong>: Todas implementadas</li>
+        <li>[x] <strong>Vistas Form y Tree</strong>: Para cada modelo</li>
+        <li>[x] <strong>Campos en vistas</strong>: Todos los campos utilizados</li>
+        <li>[x] <strong>Imágenes representativas</strong>: Binary fields en Category, Product</li>
+        <li>[x] <strong>Menús y submenús</strong>: 1 menú raíz + 4 submenús</li>
+        <li>[x] <strong>Seguridad básica</strong>: CRUD parcial/completo</li>
+        <li>[x] <strong>Icono del módulo</strong>: Personalizado</li>
+        <li>[x] <strong>Demo data</strong>: Categorías, productos, ingredientes, órdenes</li>
+    </ul>
+</div>
+<div class="requisitos">
+    <h3>✅ Requisitos Adicionales (6 PAP)</h3>
+    <ol>
+        <li>Campos computados complejos (net_price, sales_count, estimated_date)</li>
+        <li>Eventos onchange (discount warning, customer notification)</li>
+        <li>Lógica create/write (sequence generation, validation)</li>
+        <li>Constraints SQL y Python</li>
+        <li>Vista Kanban compleja para Order</li>
+        <li>Herencia de res.partner</li>
+    </ol>
+</div>
+
+<h2 id="conclusiones">Conclusiones Personales</h2>
+<p>El desarrollo de este módulo ha sido una experiencia enriquecedora que me ha permitido profundizar en el framework Odoo. He aprendido a implementar modelos complejos con relaciones avanzadas, gestionar workflows de estado y crear interfaces de usuario intuitivas. La integración de validaciones tanto en el lado del servidor como en la base de datos ha mejorado mi comprensión de la arquitectura de aplicaciones empresariales.</p>
+<p>Este proyecto demuestra la capacidad de Odoo para adaptarse a necesidades específicas de negocio, y me ha preparado para desarrollar soluciones más avanzadas en el futuro.</p>
+
+<h2 id="problemas">Problemas Encontrados</h2>
+<p>Durante el desarrollo, enfrenté varios desafíos técnicos:</p>
+<ol>
+    <li><strong>Configuración de Relaciones Complejas</strong>: La implementación de relaciones many2many entre productos e ingredientes requirió ajustes iterativos en los modelos y vistas para asegurar la integridad de datos.</li>
+    <li><strong>Gestión de Workflows</strong>: La implementación del workflow de pedidos con transiciones de estado presentó dificultades en la sincronización entre el modelo y las vistas, resolviéndose mediante el uso de métodos de acción específicos.</li>
+    <li><strong>Validaciones en Tiempo Real</strong>: Los eventos onchange para notificaciones de descuento y cliente nuevo demandaron pruebas exhaustivas para evitar comportamientos inesperados en la interfaz.</li>
+    <li><strong>Optimización de Consultas</strong>: Los campos computados con dependencias complejas inicialmente generaban consultas ineficientes, optimizadas mediante el uso de campos stored y índices apropiados.</li>
+    <li><strong>Integración con Docker</strong>: La configuración inicial del entorno de desarrollo presentó problemas de permisos y sincronización de archivos, resueltos mediante ajustes en docker-compose.yml.</li>
+</ol>
+<p>Estos problemas se superaron mediante investigación en la documentación de Odoo, pruebas unitarias y debugging sistemático.</p>
+
+<h2 id="referencias">Referencias Bibliográficas</h2>
+<ul>
+    <li><strong>Odoo 17 Developer Documentation</strong>. (2023). Recuperado de <a href="https://www.odoo.com/documentation/17.0/developer/">https://www.odoo.com/documentation/17.0/developer/</a></li>
+    <li><strong>Odoo Source Code Repository</strong>. (2023). GitHub. Recuperado de <a href="https://github.com/odoo/odoo">https://github.com/odoo/odoo</a></li>
+    <li><strong>PEP 8 - Style Guide for Python Code</strong>. (2023). Python.org. Recuperado de <a href="https://www.python.org/dev/peps/pep-0008/">https://www.python.org/dev/peps/pep-0008/</a></li>
+    <li><strong>PostgreSQL Documentation</strong>. (2023). PostgreSQL Global Development Group. Recuperado de <a href="https://www.postgresql.org/docs/">https://www.postgresql.org/docs/</a></li>
+    <li><strong>Docker Compose Documentation</strong>. (2023). Docker Inc. Recuperado de <a href="https://docs.docker.com/compose/">https://docs.docker.com/compose/</a></li>
+</ul>
+
+</body>
+</html>
